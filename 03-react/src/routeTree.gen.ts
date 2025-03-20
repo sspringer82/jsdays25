@@ -12,10 +12,13 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as TsQueryRouteImport } from './routes/ts-query/route'
+import { Route as I18nRouteImport } from './routes/i18n/route'
 import { Route as FormRouteImport } from './routes/form/route'
 import { Route as IndexImport } from './routes/index'
+import { Route as ZustandIndexImport } from './routes/zustand/index'
 import { Route as TsTableIndexImport } from './routes/ts-table/index'
 import { Route as TsQueryIndexImport } from './routes/ts-query/index'
+import { Route as I18nIndexImport } from './routes/i18n/index'
 import { Route as FormIndexImport } from './routes/form/index'
 import { Route as BooksIndexImport } from './routes/books/index'
 import { Route as FormCreateImport } from './routes/form/create'
@@ -26,6 +29,12 @@ import { Route as FormBookIdImport } from './routes/form/$bookId'
 const TsQueryRouteRoute = TsQueryRouteImport.update({
   id: '/ts-query',
   path: '/ts-query',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const I18nRouteRoute = I18nRouteImport.update({
+  id: '/i18n',
+  path: '/i18n',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -41,6 +50,12 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const ZustandIndexRoute = ZustandIndexImport.update({
+  id: '/zustand/',
+  path: '/zustand/',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const TsTableIndexRoute = TsTableIndexImport.update({
   id: '/ts-table/',
   path: '/ts-table/',
@@ -51,6 +66,12 @@ const TsQueryIndexRoute = TsQueryIndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => TsQueryRouteRoute,
+} as any)
+
+const I18nIndexRoute = I18nIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => I18nRouteRoute,
 } as any)
 
 const FormIndexRoute = FormIndexImport.update({
@@ -95,6 +116,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FormRouteImport
       parentRoute: typeof rootRoute
     }
+    '/i18n': {
+      id: '/i18n'
+      path: '/i18n'
+      fullPath: '/i18n'
+      preLoaderRoute: typeof I18nRouteImport
+      parentRoute: typeof rootRoute
+    }
     '/ts-query': {
       id: '/ts-query'
       path: '/ts-query'
@@ -130,6 +158,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FormIndexImport
       parentRoute: typeof FormRouteImport
     }
+    '/i18n/': {
+      id: '/i18n/'
+      path: '/'
+      fullPath: '/i18n/'
+      preLoaderRoute: typeof I18nIndexImport
+      parentRoute: typeof I18nRouteImport
+    }
     '/ts-query/': {
       id: '/ts-query/'
       path: '/'
@@ -142,6 +177,13 @@ declare module '@tanstack/react-router' {
       path: '/ts-table'
       fullPath: '/ts-table'
       preLoaderRoute: typeof TsTableIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/zustand/': {
+      id: '/zustand/'
+      path: '/zustand'
+      fullPath: '/zustand'
+      preLoaderRoute: typeof ZustandIndexImport
       parentRoute: typeof rootRoute
     }
   }
@@ -165,6 +207,18 @@ const FormRouteRouteWithChildren = FormRouteRoute._addFileChildren(
   FormRouteRouteChildren,
 )
 
+interface I18nRouteRouteChildren {
+  I18nIndexRoute: typeof I18nIndexRoute
+}
+
+const I18nRouteRouteChildren: I18nRouteRouteChildren = {
+  I18nIndexRoute: I18nIndexRoute,
+}
+
+const I18nRouteRouteWithChildren = I18nRouteRoute._addFileChildren(
+  I18nRouteRouteChildren,
+)
+
 interface TsQueryRouteRouteChildren {
   TsQueryIndexRoute: typeof TsQueryIndexRoute
 }
@@ -180,13 +234,16 @@ const TsQueryRouteRouteWithChildren = TsQueryRouteRoute._addFileChildren(
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/form': typeof FormRouteRouteWithChildren
+  '/i18n': typeof I18nRouteRouteWithChildren
   '/ts-query': typeof TsQueryRouteRouteWithChildren
   '/form/$bookId': typeof FormBookIdRoute
   '/form/create': typeof FormCreateRoute
   '/books': typeof BooksIndexRoute
   '/form/': typeof FormIndexRoute
+  '/i18n/': typeof I18nIndexRoute
   '/ts-query/': typeof TsQueryIndexRoute
   '/ts-table': typeof TsTableIndexRoute
+  '/zustand': typeof ZustandIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -195,21 +252,26 @@ export interface FileRoutesByTo {
   '/form/create': typeof FormCreateRoute
   '/books': typeof BooksIndexRoute
   '/form': typeof FormIndexRoute
+  '/i18n': typeof I18nIndexRoute
   '/ts-query': typeof TsQueryIndexRoute
   '/ts-table': typeof TsTableIndexRoute
+  '/zustand': typeof ZustandIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/form': typeof FormRouteRouteWithChildren
+  '/i18n': typeof I18nRouteRouteWithChildren
   '/ts-query': typeof TsQueryRouteRouteWithChildren
   '/form/$bookId': typeof FormBookIdRoute
   '/form/create': typeof FormCreateRoute
   '/books/': typeof BooksIndexRoute
   '/form/': typeof FormIndexRoute
+  '/i18n/': typeof I18nIndexRoute
   '/ts-query/': typeof TsQueryIndexRoute
   '/ts-table/': typeof TsTableIndexRoute
+  '/zustand/': typeof ZustandIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -217,13 +279,16 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/form'
+    | '/i18n'
     | '/ts-query'
     | '/form/$bookId'
     | '/form/create'
     | '/books'
     | '/form/'
+    | '/i18n/'
     | '/ts-query/'
     | '/ts-table'
+    | '/zustand'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -231,36 +296,45 @@ export interface FileRouteTypes {
     | '/form/create'
     | '/books'
     | '/form'
+    | '/i18n'
     | '/ts-query'
     | '/ts-table'
+    | '/zustand'
   id:
     | '__root__'
     | '/'
     | '/form'
+    | '/i18n'
     | '/ts-query'
     | '/form/$bookId'
     | '/form/create'
     | '/books/'
     | '/form/'
+    | '/i18n/'
     | '/ts-query/'
     | '/ts-table/'
+    | '/zustand/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   FormRouteRoute: typeof FormRouteRouteWithChildren
+  I18nRouteRoute: typeof I18nRouteRouteWithChildren
   TsQueryRouteRoute: typeof TsQueryRouteRouteWithChildren
   BooksIndexRoute: typeof BooksIndexRoute
   TsTableIndexRoute: typeof TsTableIndexRoute
+  ZustandIndexRoute: typeof ZustandIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FormRouteRoute: FormRouteRouteWithChildren,
+  I18nRouteRoute: I18nRouteRouteWithChildren,
   TsQueryRouteRoute: TsQueryRouteRouteWithChildren,
   BooksIndexRoute: BooksIndexRoute,
   TsTableIndexRoute: TsTableIndexRoute,
+  ZustandIndexRoute: ZustandIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -275,9 +349,11 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/form",
+        "/i18n",
         "/ts-query",
         "/books/",
-        "/ts-table/"
+        "/ts-table/",
+        "/zustand/"
       ]
     },
     "/": {
@@ -289,6 +365,12 @@ export const routeTree = rootRoute
         "/form/$bookId",
         "/form/create",
         "/form/"
+      ]
+    },
+    "/i18n": {
+      "filePath": "i18n/route.tsx",
+      "children": [
+        "/i18n/"
       ]
     },
     "/ts-query": {
@@ -312,12 +394,19 @@ export const routeTree = rootRoute
       "filePath": "form/index.tsx",
       "parent": "/form"
     },
+    "/i18n/": {
+      "filePath": "i18n/index.tsx",
+      "parent": "/i18n"
+    },
     "/ts-query/": {
       "filePath": "ts-query/index.tsx",
       "parent": "/ts-query"
     },
     "/ts-table/": {
       "filePath": "ts-table/index.tsx"
+    },
+    "/zustand/": {
+      "filePath": "zustand/index.tsx"
     }
   }
 }

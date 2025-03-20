@@ -22,6 +22,12 @@ function RouteComponent() {
         <li>
           <Link to="/ts-table">TS Table</Link>
         </li>
+        <li>
+          <Link to="/form">Form</Link>
+        </li>
+        <li>
+          <Link to="/zustand">Zustand</Link>
+        </li>
       </ul>
     </div>
   );

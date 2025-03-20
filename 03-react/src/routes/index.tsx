@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
@@ -7,7 +7,19 @@ export const Route = createFileRoute("/")({
 function RouteComponent() {
   return (
     <div>
-      <h1>javascript </h1>
+      <ul>
+        <li>
+          <Link to="/" className="[&.active]:font-bold">
+            Home
+          </Link>
+        </li>
+        <li>
+          <Link to="/books">Books</Link>
+        </li>
+        <li>
+          <Link to="/ts-query">TS Query</Link>
+        </li>
+      </ul>
     </div>
   );
 }

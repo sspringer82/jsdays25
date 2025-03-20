@@ -11,15 +11,29 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as TsQueryRouteImport } from './routes/ts-query/route'
 import { Route as IndexImport } from './routes/index'
+import { Route as TsQueryIndexImport } from './routes/ts-query/index'
 import { Route as BooksIndexImport } from './routes/books/index'
 
 // Create/Update Routes
+
+const TsQueryRouteRoute = TsQueryRouteImport.update({
+  id: '/ts-query',
+  path: '/ts-query',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const TsQueryIndexRoute = TsQueryIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => TsQueryRouteRoute,
 } as any)
 
 const BooksIndexRoute = BooksIndexImport.update({
@@ -39,6 +53,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/ts-query': {
+      id: '/ts-query'
+      path: '/ts-query'
+      fullPath: '/ts-query'
+      preLoaderRoute: typeof TsQueryRouteImport
+      parentRoute: typeof rootRoute
+    }
     '/books/': {
       id: '/books/'
       path: '/books'
@@ -46,43 +67,69 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BooksIndexImport
       parentRoute: typeof rootRoute
     }
+    '/ts-query/': {
+      id: '/ts-query/'
+      path: '/'
+      fullPath: '/ts-query/'
+      preLoaderRoute: typeof TsQueryIndexImport
+      parentRoute: typeof TsQueryRouteImport
+    }
   }
 }
 
 // Create and export the route tree
 
+interface TsQueryRouteRouteChildren {
+  TsQueryIndexRoute: typeof TsQueryIndexRoute
+}
+
+const TsQueryRouteRouteChildren: TsQueryRouteRouteChildren = {
+  TsQueryIndexRoute: TsQueryIndexRoute,
+}
+
+const TsQueryRouteRouteWithChildren = TsQueryRouteRoute._addFileChildren(
+  TsQueryRouteRouteChildren,
+)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ts-query': typeof TsQueryRouteRouteWithChildren
   '/books': typeof BooksIndexRoute
+  '/ts-query/': typeof TsQueryIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/books': typeof BooksIndexRoute
+  '/ts-query': typeof TsQueryIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/ts-query': typeof TsQueryRouteRouteWithChildren
   '/books/': typeof BooksIndexRoute
+  '/ts-query/': typeof TsQueryIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/books'
+  fullPaths: '/' | '/ts-query' | '/books' | '/ts-query/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/books'
-  id: '__root__' | '/' | '/books/'
+  to: '/' | '/books' | '/ts-query'
+  id: '__root__' | '/' | '/ts-query' | '/books/' | '/ts-query/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  TsQueryRouteRoute: typeof TsQueryRouteRouteWithChildren
   BooksIndexRoute: typeof BooksIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  TsQueryRouteRoute: TsQueryRouteRouteWithChildren,
   BooksIndexRoute: BooksIndexRoute,
 }
 
@@ -97,14 +144,25 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/ts-query",
         "/books/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
+    "/ts-query": {
+      "filePath": "ts-query/route.tsx",
+      "children": [
+        "/ts-query/"
+      ]
+    },
     "/books/": {
       "filePath": "books/index.tsx"
+    },
+    "/ts-query/": {
+      "filePath": "ts-query/index.tsx",
+      "parent": "/ts-query"
     }
   }
 }

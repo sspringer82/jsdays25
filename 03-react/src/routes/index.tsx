@@ -19,6 +19,9 @@ function RouteComponent() {
         <li>
           <Link to="/ts-query">TS Query</Link>
         </li>
+        <li>
+          <Link to="/ts-table">TS Table</Link>
+        </li>
       </ul>
     </div>
   );

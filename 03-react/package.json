@@ -11,6 +11,7 @@
     "backend": "json-server -p 3001 backend/data.json"
   },
   "dependencies": {
+    "@hookform/resolvers": "^4.1.3",
     "@radix-ui/react-slot": "^1.1.2",
     "@tailwindcss/vite": "^4.0.14",
     "@tanstack/react-query": "^5.69.0",
@@ -24,6 +25,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-error-boundary": "^5.0.0",
+    "react-hook-form": "^7.54.2",
     "tailwind-merge": "^3.0.2",
     "tailwindcss": "^4.0.14",
     "tw-animate-css": "^1.2.4"

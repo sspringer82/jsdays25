@@ -12,16 +12,26 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as TsQueryRouteImport } from './routes/ts-query/route'
+import { Route as FormRouteImport } from './routes/form/route'
 import { Route as IndexImport } from './routes/index'
 import { Route as TsTableIndexImport } from './routes/ts-table/index'
 import { Route as TsQueryIndexImport } from './routes/ts-query/index'
+import { Route as FormIndexImport } from './routes/form/index'
 import { Route as BooksIndexImport } from './routes/books/index'
+import { Route as FormCreateImport } from './routes/form/create'
+import { Route as FormBookIdImport } from './routes/form/$bookId'
 
 // Create/Update Routes
 
 const TsQueryRouteRoute = TsQueryRouteImport.update({
   id: '/ts-query',
   path: '/ts-query',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const FormRouteRoute = FormRouteImport.update({
+  id: '/form',
+  path: '/form',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -43,10 +53,28 @@ const TsQueryIndexRoute = TsQueryIndexImport.update({
   getParentRoute: () => TsQueryRouteRoute,
 } as any)
 
+const FormIndexRoute = FormIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => FormRouteRoute,
+} as any)
+
 const BooksIndexRoute = BooksIndexImport.update({
   id: '/books/',
   path: '/books/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const FormCreateRoute = FormCreateImport.update({
+  id: '/create',
+  path: '/create',
+  getParentRoute: () => FormRouteRoute,
+} as any)
+
+const FormBookIdRoute = FormBookIdImport.update({
+  id: '/$bookId',
+  path: '/$bookId',
+  getParentRoute: () => FormRouteRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -60,6 +88,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/form': {
+      id: '/form'
+      path: '/form'
+      fullPath: '/form'
+      preLoaderRoute: typeof FormRouteImport
+      parentRoute: typeof rootRoute
+    }
     '/ts-query': {
       id: '/ts-query'
       path: '/ts-query'
@@ -67,12 +102,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TsQueryRouteImport
       parentRoute: typeof rootRoute
     }
+    '/form/$bookId': {
+      id: '/form/$bookId'
+      path: '/$bookId'
+      fullPath: '/form/$bookId'
+      preLoaderRoute: typeof FormBookIdImport
+      parentRoute: typeof FormRouteImport
+    }
+    '/form/create': {
+      id: '/form/create'
+      path: '/create'
+      fullPath: '/form/create'
+      preLoaderRoute: typeof FormCreateImport
+      parentRoute: typeof FormRouteImport
+    }
     '/books/': {
       id: '/books/'
       path: '/books'
       fullPath: '/books'
       preLoaderRoute: typeof BooksIndexImport
       parentRoute: typeof rootRoute
+    }
+    '/form/': {
+      id: '/form/'
+      path: '/'
+      fullPath: '/form/'
+      preLoaderRoute: typeof FormIndexImport
+      parentRoute: typeof FormRouteImport
     }
     '/ts-query/': {
       id: '/ts-query/'
@@ -93,6 +149,22 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
+interface FormRouteRouteChildren {
+  FormBookIdRoute: typeof FormBookIdRoute
+  FormCreateRoute: typeof FormCreateRoute
+  FormIndexRoute: typeof FormIndexRoute
+}
+
+const FormRouteRouteChildren: FormRouteRouteChildren = {
+  FormBookIdRoute: FormBookIdRoute,
+  FormCreateRoute: FormCreateRoute,
+  FormIndexRoute: FormIndexRoute,
+}
+
+const FormRouteRouteWithChildren = FormRouteRoute._addFileChildren(
+  FormRouteRouteChildren,
+)
+
 interface TsQueryRouteRouteChildren {
   TsQueryIndexRoute: typeof TsQueryIndexRoute
 }
@@ -107,15 +179,22 @@ const TsQueryRouteRouteWithChildren = TsQueryRouteRoute._addFileChildren(
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/form': typeof FormRouteRouteWithChildren
   '/ts-query': typeof TsQueryRouteRouteWithChildren
+  '/form/$bookId': typeof FormBookIdRoute
+  '/form/create': typeof FormCreateRoute
   '/books': typeof BooksIndexRoute
+  '/form/': typeof FormIndexRoute
   '/ts-query/': typeof TsQueryIndexRoute
   '/ts-table': typeof TsTableIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/form/$bookId': typeof FormBookIdRoute
+  '/form/create': typeof FormCreateRoute
   '/books': typeof BooksIndexRoute
+  '/form': typeof FormIndexRoute
   '/ts-query': typeof TsQueryIndexRoute
   '/ts-table': typeof TsTableIndexRoute
 }
@@ -123,23 +202,54 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/form': typeof FormRouteRouteWithChildren
   '/ts-query': typeof TsQueryRouteRouteWithChildren
+  '/form/$bookId': typeof FormBookIdRoute
+  '/form/create': typeof FormCreateRoute
   '/books/': typeof BooksIndexRoute
+  '/form/': typeof FormIndexRoute
   '/ts-query/': typeof TsQueryIndexRoute
   '/ts-table/': typeof TsTableIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/ts-query' | '/books' | '/ts-query/' | '/ts-table'
+  fullPaths:
+    | '/'
+    | '/form'
+    | '/ts-query'
+    | '/form/$bookId'
+    | '/form/create'
+    | '/books'
+    | '/form/'
+    | '/ts-query/'
+    | '/ts-table'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/books' | '/ts-query' | '/ts-table'
-  id: '__root__' | '/' | '/ts-query' | '/books/' | '/ts-query/' | '/ts-table/'
+  to:
+    | '/'
+    | '/form/$bookId'
+    | '/form/create'
+    | '/books'
+    | '/form'
+    | '/ts-query'
+    | '/ts-table'
+  id:
+    | '__root__'
+    | '/'
+    | '/form'
+    | '/ts-query'
+    | '/form/$bookId'
+    | '/form/create'
+    | '/books/'
+    | '/form/'
+    | '/ts-query/'
+    | '/ts-table/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  FormRouteRoute: typeof FormRouteRouteWithChildren
   TsQueryRouteRoute: typeof TsQueryRouteRouteWithChildren
   BooksIndexRoute: typeof BooksIndexRoute
   TsTableIndexRoute: typeof TsTableIndexRoute
@@ -147,6 +257,7 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  FormRouteRoute: FormRouteRouteWithChildren,
   TsQueryRouteRoute: TsQueryRouteRouteWithChildren,
   BooksIndexRoute: BooksIndexRoute,
   TsTableIndexRoute: TsTableIndexRoute,
@@ -163,6 +274,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/form",
         "/ts-query",
         "/books/",
         "/ts-table/"
@@ -171,14 +283,34 @@ export const routeTree = rootRoute
     "/": {
       "filePath": "index.tsx"
     },
+    "/form": {
+      "filePath": "form/route.tsx",
+      "children": [
+        "/form/$bookId",
+        "/form/create",
+        "/form/"
+      ]
+    },
     "/ts-query": {
       "filePath": "ts-query/route.tsx",
       "children": [
         "/ts-query/"
       ]
     },
+    "/form/$bookId": {
+      "filePath": "form/$bookId.tsx",
+      "parent": "/form"
+    },
+    "/form/create": {
+      "filePath": "form/create.tsx",
+      "parent": "/form"
+    },
     "/books/": {
       "filePath": "books/index.tsx"
+    },
+    "/form/": {
+      "filePath": "form/index.tsx",
+      "parent": "/form"
     },
     "/ts-query/": {
       "filePath": "ts-query/index.tsx",

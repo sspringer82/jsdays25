@@ -11,12 +11,16 @@
     "backend": "json-server -p 3001 backend/data.json"
   },
   "dependencies": {
+    "@tanstack/react-router": "^1.114.25",
     "json-server": "^1.0.0-beta.3",
+    "ky": "^1.7.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
+    "@tanstack/react-router-devtools": "^1.114.25",
+    "@tanstack/router-plugin": "^1.114.25",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",

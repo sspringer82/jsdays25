@@ -1,0 +1,184 @@
+{
+  "books": [
+    {
+      "id": "1",
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "publishedYear": "1928",
+      "genre": "Fiction",
+      "pages": 218,
+      "isbn": "9780743273565"
+    },
+    {
+      "id": "2",
+      "title": "To Kill a Mockingbird",
+      "author": "Harper Lee",
+      "publishedYear": 1960,
+      "genre": "Fiction",
+      "pages": 281,
+      "isbn": "9780061120084"
+    },
+    {
+      "id": "3",
+      "title": "1984",
+      "author": "George Orwell",
+      "publishedYear": 1949,
+      "genre": "Dystopian",
+      "pages": 328,
+      "isbn": "9780451524935"
+    },
+    {
+      "id": "4",
+      "title": "Pride and Prejudice",
+      "author": "Jane Austen",
+      "publishedYear": 1813,
+      "genre": "Romance",
+      "pages": 279,
+      "isbn": "9781503290563"
+    },
+    {
+      "id": "5",
+      "title": "The Catcher in the Rye",
+      "author": "J.D. Salinger",
+      "publishedYear": 1951,
+      "genre": "Fiction",
+      "pages": 214,
+      "isbn": "9780316769488"
+    },
+    {
+      "id": "6",
+      "title": "The Hobbit",
+      "author": "J.R.R. Tolkien",
+      "publishedYear": 1937,
+      "genre": "Fantasy",
+      "pages": 310,
+      "isbn": "9780547928227"
+    },
+    {
+      "id": "7",
+      "title": "Fahrenheit 451",
+      "author": "Ray Bradbury",
+      "publishedYear": 1953,
+      "genre": "Dystopian",
+      "pages": 194,
+      "isbn": "9781451673319"
+    },
+    {
+      "id": "8",
+      "title": "Moby-Dick",
+      "author": "Herman Melville",
+      "publishedYear": 1851,
+      "genre": "Adventure",
+      "pages": 635,
+      "isbn": "9781503280786"
+    },
+    {
+      "id": "9",
+      "title": "War and Peace",
+      "author": "Leo Tolstoy",
+      "publishedYear": 1869,
+      "genre": "Historical",
+      "pages": 1225,
+      "isbn": "9781400079988"
+    },
+    {
+      "id": "10",
+      "title": "The Odyssey",
+      "author": "Homer",
+      "publishedYear": -800,
+      "genre": "Epic",
+      "pages": 541,
+      "isbn": "9780140268867"
+    },
+    {
+      "id": "11",
+      "title": "Crime and Punishment",
+      "author": "Fyodor Dostoevsky",
+      "publishedYear": 1866,
+      "genre": "Psychological",
+      "pages": 671,
+      "isbn": "9780486415871"
+    },
+    {
+      "id": "12",
+      "title": "The Brothers Karamazov",
+      "author": "Fyodor Dostoevsky",
+      "publishedYear": 1880,
+      "genre": "Philosophical",
+      "pages": 824,
+      "isbn": "9780374528379"
+    },
+    {
+      "id": "13",
+      "title": "Brave New World",
+      "author": "Aldous Huxley",
+      "publishedYear": 1932,
+      "genre": "Dystopian",
+      "pages": 311,
+      "isbn": "9780060850524"
+    },
+    {
+      "id": "14",
+      "title": "Jane Eyre",
+      "author": "Charlotte Brontë",
+      "publishedYear": 1847,
+      "genre": "Romance",
+      "pages": 500,
+      "isbn": "9780141441146"
+    },
+    {
+      "id": "15",
+      "title": "Wuthering Heights",
+      "author": "Emily Brontë",
+      "publishedYear": 1847,
+      "genre": "Gothic",
+      "pages": 416,
+      "isbn": "9780141439556"
+    },
+    {
+      "id": "16",
+      "title": "The Divine Comedy",
+      "author": "Dante Alighieri",
+      "publishedYear": 1320,
+      "genre": "Epic",
+      "pages": 798,
+      "isbn": "9780142437223"
+    },
+    {
+      "id": "17",
+      "title": "The Iliad",
+      "author": "Homer",
+      "publishedYear": -750,
+      "genre": "Epic",
+      "pages": 704,
+      "isbn": "9780140275360"
+    },
+    {
+      "id": "18",
+      "title": "Don Quixote",
+      "author": "Miguel de Cervantes",
+      "publishedYear": 1605,
+      "genre": "Adventure",
+      "pages": 992,
+      "isbn": "9780060934347"
+    },
+    {
+      "id": "19",
+      "title": "The Canterbury Tales",
+      "author": "Geoffrey Chaucer",
+      "publishedYear": 1400,
+      "genre": "Classic",
+      "pages": 544,
+      "isbn": "9780140424386"
+    },
+    {
+      "id": "20",
+      "title": "Les Misérables",
+      "author": "Victor Hugo",
+      "publishedYear": 1862,
+      "genre": "Historical",
+      "pages": 1,
+      "isbn": "9780451419439"
+    }
+  ]
+}

@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { deleteBook, fetchBooks } from "../../api/books";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/ts-query/")({
   component: RouteComponent,
@@ -54,7 +55,12 @@ function RouteComponent() {
             <td>{book.genre}</td>
             <td>{book.pages}</td>
             <td>
-              <button onClick={() => mutation.mutate(book.id)}>delete</button>
+              <Button
+                variant={"outline"}
+                onClick={() => mutation.mutate(book.id)}
+              >
+                delete
+              </Button>
             </td>
           </tr>
         ))}
